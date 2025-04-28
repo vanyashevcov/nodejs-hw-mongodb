@@ -16,10 +16,7 @@ export const updateContact = async (_id, data, options = {}) => {
 
   if (!rawResult || !rawResult.value) return null;
 
-  return {
-    data: rawResult.value,
-    isNew: Boolean(rawResult.lastErrorObject.upserted),
-  };
+  return rawResult.value;
 };
 
 export const deleteContactById = (_id) =>
