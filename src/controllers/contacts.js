@@ -1,4 +1,5 @@
 import createHttpError from 'http-errors';
+import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import {
   getContacts,
   getContactById,
@@ -6,9 +7,19 @@ import {
   updateContact,
   deleteContactById,
 } from '../services/contact.js';
+import { parseSortParams } from '../utils/parseSortParams.js';
+import { contactSortFields } from '../db/models/Contact.js';
+import { parseContactsFilterParams } from '../utils/filters/parseContactsFilterParams.js';
 
 export const getContactsController = async (req, res) => {
-  const data = await getContacts();
+  const paginationParams = parsePaginationParams(req.query);
+  const sortParams = parseSortParams(req.query, contactSortFields);
+  const filters = parseContactsFilterParams(req.query);
+  const data = await getContacts({
+    ...paginationParams,
+    ...sortParams,
+    filters,
+  });
 
   res.json({
     status: 200,
@@ -66,6 +77,6 @@ export const deleteContactByIdController = async (req, res) => {
   if (!data) {
     throw createHttpError(404, 'Contact not found');
   }
-  
+
   res.status(204).send();
 };
