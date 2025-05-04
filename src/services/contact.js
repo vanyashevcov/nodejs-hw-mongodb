@@ -1,6 +1,6 @@
 import ContactCollection from '../db/models/Contact.js';
-import { calcPaginationData } from '../utils/calcPaginationData.js';
 import { sortList } from '../constants/index.js';
+import { calcPaginationData } from '../utils/calcPaginationData.js';
 
 export const getContacts = async ({
   page = 1,
@@ -23,6 +23,7 @@ export const getContacts = async ({
   if (filters.isFavourite) {
     contactQuery.where('isFavourite').equals(filters.isFavourite);
   }
+  
   const totalItems = await ContactCollection.find()
   .merge(contactQuery)
   .countDocuments();

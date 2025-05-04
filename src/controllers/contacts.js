@@ -1,5 +1,8 @@
 import createHttpError from 'http-errors';
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
+import { parseSortParams } from '../utils/parseSortParams.js';
+import { parseContactsFilterParams } from '../utils/filters/parseContactsFilterParams.js';
+import { contactSortFields } from '../db/models/Contact.js';
 import {
   getContacts,
   getContactById,
@@ -7,13 +10,11 @@ import {
   updateContact,
   deleteContactById,
 } from '../services/contact.js';
-import { parseSortParams } from '../utils/parseSortParams.js';
-import { contactSortFields } from '../db/models/Contact.js';
-import { parseContactsFilterParams } from '../utils/filters/parseContactsFilterParams.js';
 
 export const getContactsController = async (req, res) => {
   const paginationParams = parsePaginationParams(req.query);
   const sortParams = parseSortParams(req.query, contactSortFields);
+  const filters = parseContactsFilterParams(req.query);
   filters.userId = req.user._id;
   const data = await getContacts({
     ...paginationParams,
@@ -57,12 +58,12 @@ export const addContactsController = async (req, res) => {
 
 export const patchContactController = async (req, res) => {
   const { id } = req.params;
-
   const data = await updateContact(id, req.body);
 
   if (!data) {
     throw createHttpError(404, 'Contact not found');
   }
+
   res.json({
     status: 200,
     message: `Successfully patched a contact!`,
@@ -72,7 +73,6 @@ export const patchContactController = async (req, res) => {
 
 export const deleteContactByIdController = async (req, res) => {
   const { id } = req.params;
-
   const data = await deleteContactById(id);
 
   if (!data) {
