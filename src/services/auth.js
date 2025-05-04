@@ -77,8 +77,9 @@ export const refreshUser = async ({ refreshToken, sessionId }) => {
 
   const newSession = createSession();
 
+  // console.log('refreshUser', session);
   return SessionCollection.create({
-    userId: session.user._id,
+    userId: session.userId,
     ...newSession,
   });
 };
