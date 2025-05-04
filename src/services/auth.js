@@ -22,13 +22,14 @@ const createSession = () => {
   };
 };
 
-export const findSession = (query) => SessionCollection.findOne(query);
+export const findSession = query => SessionCollection.findOne(query);
 
-export const findUser = (query) => UserCollection.findOne(query);
+export const findUser = query => UserCollection.findOne(query);
 
-export const registerUser = async (data) => {
+export const registerUser = async data => {
   const { email, password } = data;
   const user = await findUser({ email });
+
   if (user) {
     throw createHttpError(409, `Email in use`);
   }
@@ -38,9 +39,10 @@ export const registerUser = async (data) => {
   return await UserCollection.create({ ...data, password: hashPassword });
 };
 
-export const loginUser = async (data) => {
+export const loginUser = async data => {
   const { email, password } = data;
   const user = await findUser({ email });
+
   if (!user) {
     throw createHttpError(401, 'Invalid email or password');
   }
@@ -53,6 +55,7 @@ export const loginUser = async (data) => {
   await SessionCollection.findOneAndDelete({ userId: user._id });
 
   const session = createSession();
+  
   return SessionCollection.create({
     userId: user._id,
     ...session,

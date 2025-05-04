@@ -7,13 +7,13 @@ import {
   patchContactController,
   deleteContactByIdController,
 } from '../controllers/contacts.js';
+import { isValidId } from '../middlewares/isValidId.js';
+import { authenticate } from '../middlewares/authenticate.js';
 import { validateBody } from '../utils/validateBody.js';
 import {
   contactAddSchema,
   contactUpdateSchema,
 } from '../validation/contacts.js';
-import { isValidId } from '../middlewares/isValidId.js';
-import { authenticate } from '../middlewares/authenticate.js';
 
 const contactsRouter = Router();
 

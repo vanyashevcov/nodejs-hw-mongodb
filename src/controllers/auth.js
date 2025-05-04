@@ -8,12 +8,12 @@ import {
 const setupSession = (res, session) => {
   res.cookie('refreshToken', session.refreshToken, {
     httpOnly: true,
-    expires: session.refreshTokenValidUnitl,
+    expires: session.refreshTokenValidUntil,
   });
 
   res.cookie('sessionId', session._id, {
     httpOnly: true,
-    expires: session.refreshTokenValidUnitl,
+    expires: session.refreshTokenValidUntil,
   });
 };
 
@@ -23,6 +23,10 @@ export const registerController = async (req, res) => {
   res.status(201).json({
     status: 201,
     message: 'Successfully registered a user!!',
+    data: {
+      name: req.body.name,
+      email: req.body.email,
+    },
   });
 };
 

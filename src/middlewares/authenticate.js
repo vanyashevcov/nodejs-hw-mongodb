@@ -2,7 +2,6 @@ import createHttpError from 'http-errors';
 import { findSession, findUser } from '../services/auth.js';
 
 export const authenticate = async (req, res, next) => {
-  // const { authorization } = req.headers;
   const authorization = req.get('Authorization');
   if (!authorization) {
     return next(createHttpError(401, 'Authorization header missing'));

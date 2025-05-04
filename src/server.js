@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { logger } from './middlewares/logger.js';
-import { notFoundHndler } from './middlewares/notFoundHndler.js';
+import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import authRouter from './routers/auth.js';
 import contactsRouter from './routers/contacts.js';
@@ -19,7 +19,7 @@ export const setupServer = () => {
   app.use('/auth', authRouter);
   app.use('/contacts', contactsRouter);
 
-  app.use(notFoundHndler);
+  app.use(notFoundHandler);
 
   app.use(errorHandler);
 
