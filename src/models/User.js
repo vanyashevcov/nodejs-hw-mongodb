@@ -1,6 +1,7 @@
 import { Schema, model } from 'mongoose';
+
 import { handleSaveError, setUpdateSettings } from './hooks.js';
-import { emailRegexp } from '../../constants/auth.js';
+import { emailRegexp } from '../constants/auth.js';
 
 const userSchema = new Schema(
   {
@@ -18,17 +19,19 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    verify: {
-      type: Boolean,
-      default: false,
-      required: true,
-    }
+    // verify: {
+    //   type: Boolean,
+    //   default: false,
+    //   require: true,
+    // },
   },
   { versionKey: false, timestamps: true },
 );
 
 userSchema.post('save', handleSaveError);
+
 userSchema.pre('findOneAndUpdate', setUpdateSettings);
+
 userSchema.post('findOneAndUpdate', handleSaveError);
 
 const UserCollection = model('user', userSchema);

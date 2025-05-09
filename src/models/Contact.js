@@ -1,18 +1,20 @@
 import { Schema, model } from 'mongoose';
-import { typeList } from '../../constants/contacts.js';
+import { typeList } from '../constants/contacts.js';
 import { handleSaveError, setUpdateSettings } from './hooks.js';
 
 const contactSchema = new Schema(
   {
     name: {
       type: String,
-      required: true,
+      required: [true, 'Треба вказати ім`я'],
     },
     phoneNumber: {
       type: String,
       required: true,
     },
-    email: String,
+    email: {
+      type: String,
+    },
     isFavourite: {
       type: Boolean,
       default: false,
@@ -21,7 +23,7 @@ const contactSchema = new Schema(
       type: String,
       enum: typeList,
       required: true,
-      default: typeList[2],
+      default: typeList[0],
     },
     userId: {
       type: Schema.Types.ObjectId,
