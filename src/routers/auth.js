@@ -25,7 +25,7 @@ authRouter.post(
   ctrlWrapper(registerController),
 );
 
-authRouter.post('/verify', ctrlWrapper(verifyController));
+authRouter.get('/verify', ctrlWrapper(verifyController));
 
 authRouter.post(
   '/request-reset-email',
