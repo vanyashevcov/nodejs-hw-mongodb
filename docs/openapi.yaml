@@ -12,7 +12,7 @@ tags:
     description: Operations about users.
 servers:
   - url: http://localhost:3000
-  - url: https://nodejs-hw-mongodb-uvqw.onrender.com #посилання на задеплоєний сайт
+  - url: https://hw7-swagger-4ydx.onrender.com #посилання на задеплоєний сайт
 paths:
   # тут будуть посилання на ендпоінти
   /contacts:
