@@ -10,6 +10,8 @@ import {
   updateContact,
   deleteContactById,
 } from '../services/contact.js';
+// import { saveFileToLocal } from '../utils/saveFileToLocal.js';
+import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 
 export const getContactsController = async (req, res) => {
   const paginationParams = parsePaginationParams(req.query);
@@ -58,8 +60,18 @@ export const addContactsController = async (req, res) => {
 
 export const patchContactController = async (req, res) => {
   const { contactId } = req.params;
+  let photo = null;
+
+  if (req.file) {
+    // image = await saveFileToLocal(req.file);
+    photo = await saveFileToCloudinary(req.file);
+  }
+
   const { _id: userId } = req.user;
-  const result = await updateContact({ contactId, userId }, req.body);
+  const result = await updateContact(
+    { contactId, userId },
+    { ...req.body, photo },
+  );
 
   if (!result) {
     throw createHttpError(404, 'Contact not found');
