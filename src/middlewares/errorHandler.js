@@ -5,5 +5,4 @@ export const errorHandler = (error, req, res, next) => {
     message: 'Something went wrong',
     data: message,
   });
-
 };
