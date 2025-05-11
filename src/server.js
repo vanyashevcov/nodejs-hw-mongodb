@@ -32,10 +32,6 @@ export const setupServer = () => {
 
   app.use('/api-docs', swaggerDocs());
 
-  app.get('/', (req, res) => {
-    res.send('API is working');
-  });
-
   app.use(notFoundHandler);
 
   app.use(errorHandler);
