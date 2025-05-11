@@ -1,6 +1,5 @@
 import { readFileSync } from 'node:fs';
 import swaggerUI from 'swagger-ui-express';
-
 import { SWAGGER_PATH } from '../constants/index.js';
 
 export const swaggerDocs = () => {
