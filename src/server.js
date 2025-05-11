@@ -30,14 +30,7 @@ export const setupServer = () => {
 
   app.use('/contacts', contactsRouter);
 
-  // app.use('/api-docs', swaggerDocs());
-
-  const swaggerMiddleware = swaggerDocs();
-  if (Array.isArray(swaggerMiddleware)) {
-    app.use('/api-docs', ...swaggerMiddleware);
-  } else {
-    app.use('/api-docs', swaggerMiddleware);
-  }
+  app.use('/api-docs', swaggerDocs());
 
   app.use(notFoundHandler);
 
