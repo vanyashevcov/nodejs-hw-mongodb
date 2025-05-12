@@ -20,6 +20,6 @@ export const contactsUpdateSchema = Joi.object({
   name: Joi.string(),
   phoneNumber: Joi.string(),
   email: Joi.string(),
-  isFavourite: Joi.boolean,
+  isFavourite: Joi.boolean(),
   contactType: Joi.string().valid(...typeList),
 });
