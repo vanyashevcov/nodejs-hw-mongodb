@@ -23,4 +23,4 @@ content:
           properties:
             message:
               type: string
-              example: 'Contact with id=65ca67e7ae7f10c88b598384 not found'
+              example: 'Contact with id=680df4d5205cad88d821b78e not found'
